@@ -18,7 +18,7 @@ class Auth0Service implements AuthService {
 
       return User(
         result.user.name!,
-        result.user.websiteUrl.toString(),
+        githubUrl: 'https://github.com/${result.user.nickname}',
       );
     } catch (e) {
       if (e is WebAuthenticationException && e.code == 'USER_CANCELLED') {

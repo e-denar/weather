@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather/models/nav_arguments/home_screen_nav_argument.dart';
 
 import '../blocs/blocs.dart';
 import '../screens/screens.dart';
@@ -14,7 +15,12 @@ class LandingScreen extends StatelessWidget {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
-          Navigator.of(context).pushNamed(HomeScreen.path);
+          Navigator.of(context).pushReplacementNamed(
+            HomeScreen.path,
+            arguments: HomeScreenNavArgument(
+              user: state.user!,
+            ),
+          );
         } else if (state.status.isError && state.errorMessage != null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

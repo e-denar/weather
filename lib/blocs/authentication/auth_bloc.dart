@@ -13,6 +13,7 @@ class AuthState with _$AuthState {
   const factory AuthState({
     @Default(Status.init) Status status,
     Message? errorMessage,
+    User? user,
   }) = _AuthState;
 
   factory AuthState.init() => const AuthState();
@@ -43,10 +44,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emitter(state.copyWith(status: Status.loading));
 
-      final result = await _authService.login();
+      final user = await _authService.login();
 
-      if (result != null) {
-        emitter(state.copyWith(status: Status.success));
+      if (user != null) {
+        emitter(state.copyWith(
+          status: Status.success,
+          user: user,
+        ));
       } else {
         emitter(state.copyWith(status: Status.init));
       }

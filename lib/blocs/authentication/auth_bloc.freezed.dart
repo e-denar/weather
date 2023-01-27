@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthState {
   Status get status => throw _privateConstructorUsedError;
   Message? get errorMessage => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
-  $Res call({Status status, Message? errorMessage});
+  $Res call({Status status, Message? errorMessage, User? user});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   $Res call({
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -57,6 +59,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as Message?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ) as $Val);
   }
 }
@@ -68,7 +74,7 @@ abstract class _$$_AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
       __$$_AuthStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, Message? errorMessage});
+  $Res call({Status status, Message? errorMessage, User? user});
 }
 
 /// @nodoc
@@ -84,6 +90,7 @@ class __$$_AuthStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? user = freezed,
   }) {
     return _then(_$_AuthState(
       status: null == status
@@ -94,6 +101,10 @@ class __$$_AuthStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as Message?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ));
   }
 }
@@ -101,17 +112,19 @@ class __$$_AuthStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AuthState implements _AuthState {
-  const _$_AuthState({this.status = Status.init, this.errorMessage});
+  const _$_AuthState({this.status = Status.init, this.errorMessage, this.user});
 
   @override
   @JsonKey()
   final Status status;
   @override
   final Message? errorMessage;
+  @override
+  final User? user;
 
   @override
   String toString() {
-    return 'AuthState(status: $status, errorMessage: $errorMessage)';
+    return 'AuthState(status: $status, errorMessage: $errorMessage, user: $user)';
   }
 
   @override
@@ -121,11 +134,12 @@ class _$_AuthState implements _AuthState {
             other is _$_AuthState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, errorMessage);
+  int get hashCode => Object.hash(runtimeType, status, errorMessage, user);
 
   @JsonKey(ignore: true)
   @override
@@ -135,13 +149,17 @@ class _$_AuthState implements _AuthState {
 }
 
 abstract class _AuthState implements AuthState {
-  const factory _AuthState({final Status status, final Message? errorMessage}) =
-      _$_AuthState;
+  const factory _AuthState(
+      {final Status status,
+      final Message? errorMessage,
+      final User? user}) = _$_AuthState;
 
   @override
   Status get status;
   @override
   Message? get errorMessage;
+  @override
+  User? get user;
   @override
   @JsonKey(ignore: true)
   _$$_AuthStateCopyWith<_$_AuthState> get copyWith =>
