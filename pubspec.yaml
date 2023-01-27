@@ -30,6 +30,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   auth0_flutter: ^1.0.2
+  connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter

@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart';
+
+import '../common/common.dart';
 
 enum HttpMethod {
   get,
@@ -26,6 +29,11 @@ class WebService {
     String contentType = HttpContentTypes.json,
   }) async {
     assert(url.isNotEmpty);
+
+    final connectivity = await Connectivity().checkConnectivity();
+    if (connectivity == ConnectivityResult.none) {
+      throw NetworkException();
+    }
 
     headers ??= {};
 
