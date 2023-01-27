@@ -1,16 +1,30 @@
 # weather
 
-A new Flutter project.
+### SDK Information
 
-## Getting Started
+- Flutter 3.3.9, channel stable
+- Dart 2.18.5
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+#### Code generation
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+[build_runner](https://pub.dev/packages/build_runner) executes the code generation. The files generated are named `*.g.dart`, `*.freezed.dart`.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+You can run it by running this command in your project folder:
+
+```sh
+flutter pub run build_runner build
+```
+
+Alternatively, you automatically execute build_runner whenever your source file changes by running this command:
+
+```sh
+flutter pub run build_runner watch
+```
+
+If there are errors when executing build_runner, run this command to clear all generated files that are conflicting:
+
+```sh
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
