@@ -41,6 +41,14 @@ class App extends StatelessWidget {
                     content: Text(state.errorMessage!.text),
                   ),
                 );
+              } else if (state.status.isInit && state.user != null) {
+                Navigator.of(GlobalKeys.navigatorKey.currentState!.context)
+                    .pushReplacementNamed(
+                  LandingScreen.path,
+                  arguments: HomeScreenNavArgument(
+                    user: state.user!,
+                  ),
+                );
               }
             },
             child: child,
