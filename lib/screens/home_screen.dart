@@ -150,66 +150,45 @@ class _WeatherResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 80),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 2,
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 80),
+        child: Table(
+          border: TableBorder.all(),
+          children: [
+            const TableRow(
               children: [
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        border: Border.fromBorderSide(BorderSide(
-                      width: 1,
-                    ))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Date (mm/dd/yyyy)'),
-                        ...weather.map((e) => Text(e.cityName))
-                      ],
-                    ),
+                Text(
+                  'Date',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Temperature (F)'),
-                        ...weather.map((e) => Text(e.temp))
-                      ],
-                    ),
+                Text(
+                  'Temperature',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: () => context.read<HomeBloc>().add(HomeBackEvent()),
-                child: const Text('Back'),
-              )
-            ],
-          )
-        ],
-      ),
-    );
+            ...weather.map(
+              (e) => TableRow(
+                decoration: BoxDecoration(
+                  color: weather.indexOf(e).isEven
+                      ? Colors.grey.withOpacity(0.5)
+                      : Colors.transparent,
+                ),
+                children: [
+                  Text(
+                    e.cityName,
+                  ),
+                  Text(e.temp)
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }
 
