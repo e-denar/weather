@@ -5,31 +5,41 @@ PODS:
   - auth0_flutter (1.0.2):
     - Auth0 (~> 2.3)
     - Flutter
+  - connectivity_plus (0.0.1):
+    - Flutter
+    - ReachabilitySwift
   - Flutter (1.0.0)
   - JWTDecode (3.0.1)
+  - ReachabilitySwift (5.0.0)
   - SimpleKeychain (1.0.1)
 
 DEPENDENCIES:
   - auth0_flutter (from `.symlinks/plugins/auth0_flutter/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Flutter (from `Flutter`)
 
 SPEC REPOS:
   trunk:
     - Auth0
     - JWTDecode
+    - ReachabilitySwift
     - SimpleKeychain
 
 EXTERNAL SOURCES:
   auth0_flutter:
     :path: ".symlinks/plugins/auth0_flutter/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   Flutter:
     :path: Flutter
 
 SPEC CHECKSUMS:
   Auth0: 64da28fdc5cd499aa516dc4bfd0ace8efae2c1da
   auth0_flutter: 7ce66d04cd9e9b29291f436dfec65992595156c4
+  connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   JWTDecode: 2eed97c2fa46ccaf3049a787004eedf0be474a87
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SimpleKeychain: 130211269f88f038d7dc5254cf0b1b9ce978c398
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
