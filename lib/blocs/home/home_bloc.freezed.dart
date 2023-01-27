@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HomeState {
   Status get status => throw _privateConstructorUsedError;
+  List<Weather>? get weather => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({Status status});
+  $Res call({Status status, List<Weather>? weather});
 }
 
 /// @nodoc
@@ -45,12 +46,17 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? status = null,
+    Object? weather = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      weather: freezed == weather
+          ? _value.weather
+          : weather // ignore: cast_nullable_to_non_nullable
+              as List<Weather>?,
     ) as $Val);
   }
 }
@@ -62,7 +68,7 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       __$$_HomeStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status});
+  $Res call({Status status, List<Weather>? weather});
 }
 
 /// @nodoc
@@ -77,12 +83,17 @@ class __$$_HomeStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? weather = freezed,
   }) {
     return _then(_$_HomeState(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      weather: freezed == weather
+          ? _value._weather
+          : weather // ignore: cast_nullable_to_non_nullable
+              as List<Weather>?,
     ));
   }
 }
@@ -90,15 +101,25 @@ class __$$_HomeStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_HomeState implements _HomeState {
-  const _$_HomeState({this.status = Status.init});
+  const _$_HomeState({this.status = Status.init, final List<Weather>? weather})
+      : _weather = weather;
 
   @override
   @JsonKey()
   final Status status;
+  final List<Weather>? _weather;
+  @override
+  List<Weather>? get weather {
+    final value = _weather;
+    if (value == null) return null;
+    if (_weather is EqualUnmodifiableListView) return _weather;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'HomeState(status: $status)';
+    return 'HomeState(status: $status, weather: $weather)';
   }
 
   @override
@@ -106,11 +127,13 @@ class _$_HomeState implements _HomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_HomeState &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other._weather, _weather));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status);
+  int get hashCode => Object.hash(
+      runtimeType, status, const DeepCollectionEquality().hash(_weather));
 
   @JsonKey(ignore: true)
   @override
@@ -120,10 +143,13 @@ class _$_HomeState implements _HomeState {
 }
 
 abstract class _HomeState implements HomeState {
-  const factory _HomeState({final Status status}) = _$_HomeState;
+  const factory _HomeState(
+      {final Status status, final List<Weather>? weather}) = _$_HomeState;
 
   @override
   Status get status;
+  @override
+  List<Weather>? get weather;
   @override
   @JsonKey(ignore: true)
   _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>
