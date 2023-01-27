@@ -43,9 +43,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emitter(state.copyWith(status: Status.loading));
 
-      await _authService.login();
+      final result = await _authService.login();
 
-      emitter(state.copyWith(status: Status.success));
+      if (result != null) {
+        emitter(state.copyWith(status: Status.success));
+      } else {
+        emitter(state.copyWith(status: Status.init));
+      }
     } catch (e) {
       emitter(
         state.copyWith(

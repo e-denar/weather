@@ -12,7 +12,7 @@ class Auth0Service implements AuthService {
   );
 
   @override
-  Future<User> login() async {
+  Future<User?> login() async {
     try {
       final result = await _service.webAuthentication().login();
 
@@ -21,7 +21,11 @@ class Auth0Service implements AuthService {
         result.user.websiteUrl.toString(),
       );
     } catch (e) {
-      throw LoginException();
+      if (e is WebAuthenticationException && e.code == 'USER_CANCELLED') {
+        return null;
+      } else {
+        throw LoginException();
+      }
     }
   }
 
