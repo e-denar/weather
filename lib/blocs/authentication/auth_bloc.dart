@@ -1,3 +1,4 @@
+import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -33,6 +34,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   })  : _authService = authService ?? Auth0Service(),
         super(AuthState.init()) {
     on<AuthLoginEvent>(_onLogin);
+    on<AuthLogoutEvent>(_onLogout);
   }
 
   final AuthService _authService;
@@ -55,6 +57,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emitter(state.copyWith(status: Status.init));
       }
     } catch (e) {
+      emitter(
+        state.copyWith(
+          status: Status.error,
+          errorMessage: Message(
+            e.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLogout(
+    AuthLogoutEvent event,
+    Emitter<AuthState> emitter,
+  ) async {
+    try {
+      emitter(state.copyWith(status: Status.loading));
+      await _authService.logout();
+      emitter(state.copyWith(status: Status.init));
+    } catch (e) {
+      if (e is WebAuthenticationException && e.code == 'USER_CANCELLED') {
+        return;
+      }
+
       emitter(
         state.copyWith(
           status: Status.error,

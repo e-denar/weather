@@ -14,7 +14,9 @@ class Auth0Service implements AuthService {
   @override
   Future<User?> login() async {
     try {
-      final result = await _service.webAuthentication().login();
+      final result = await _service.webAuthentication().login(
+            useEphemeralSession: true,
+          );
 
       return User(
         result.user.name!,
@@ -34,7 +36,11 @@ class Auth0Service implements AuthService {
     try {
       await _service.webAuthentication().logout();
     } catch (e) {
-      throw LogoutException();
+      if (e is WebAuthenticationException && e.code == 'USER_CANCELLED') {
+        rethrow;
+      } else {
+        throw LogoutException();
+      }
     }
   }
 }

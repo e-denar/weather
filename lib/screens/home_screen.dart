@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather/blocs/blocs.dart';
 import 'package:weather/blocs/home/home_bloc.dart';
 
 import '../common/common.dart';
@@ -22,9 +23,7 @@ class HomeScreen extends StatelessWidget {
         leading: const Icon(Icons.cloud),
         actions: [
           TextButton(
-            onPressed: () {
-              // TODO
-            },
+            onPressed: () => context.read<AuthBloc>().add(AuthLogoutEvent()),
             child: const Text(
               'Logout',
               style: TextStyle(
@@ -57,7 +56,13 @@ class HomeScreen extends StatelessWidget {
 
           return AnimatedSwitcher(
             duration: const Duration(milliseconds: 50),
-            child: child,
+            child: Column(
+              children: [
+                Text('name: ${user.name}'),
+                Text('github: ${user.githubUrl}'),
+                child,
+              ],
+            ),
           );
         },
       ),
