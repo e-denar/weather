@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../blocs/blocs.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -22,9 +25,27 @@ class LandingScreen extends StatelessWidget {
               'Welcome to the weather forecast web application. Please login with your Github user to use the application and view the weather in your city.',
             ),
             const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Login'),
+            BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, state) {
+                return ElevatedButton(
+                  onPressed: () {
+                    if (state.status.isLoading) {
+                      return;
+                    }
+
+                    context.read<AuthBloc>().add(AuthLoginEvent());
+                  },
+                  child: !state.status.isLoading
+                      ? const Text('Login')
+                      : const SizedBox(
+                          height: 24,
+                          width: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                );
+              },
             ),
           ],
         ),

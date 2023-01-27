@@ -2,5 +2,7 @@ enum Status {
   loading,
   init,
   success,
-  error,
+  error;
+
+  bool get isLoading => this == Status.loading;
 }
