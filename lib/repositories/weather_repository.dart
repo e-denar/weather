@@ -30,11 +30,9 @@ class OpenWeatherRepository extends WebService implements WeatherRepository {
 
       final data = jsonDecode(result.body) as List<dynamic>;
       final coordinates = data.map((e) => Coordinates.fromJson(e)).toList();
-      final weatherData = await Future.wait([
-        ...coordinates.map((e) => _fetchWeatherData(e)),
-      ]);
+      final weatherData = await _fetchWeatherData(coordinates.first);
 
-      return weatherData;
+      return [weatherData];
     } on NetworkException {
       rethrow;
     } catch (e) {
@@ -47,7 +45,7 @@ class OpenWeatherRepository extends WebService implements WeatherRepository {
   ) async {
     try {
       final result = await send(
-        'http://api.openweathermap.org/data/2.5/forecast/daily?lat=${coordinate.lat}&lon=${coordinate.lon}&cnt=1&units=imperial&appid=${EnvConfig.instance.env.weatherApiKey}',
+        'http://api.openweathermap.org/data/2.5/weather?lat=${coordinate.lat}&lon=${coordinate.lon}&cnt=1&units=imperial&appid=${EnvConfig.instance.env.weatherApiKey}',
         method: HttpMethod.get,
       );
 
@@ -55,8 +53,8 @@ class OpenWeatherRepository extends WebService implements WeatherRepository {
       final weatherData =
           OpenWeatherResponse.fromJson(data as Map<String, dynamic>);
       return Weather(
-        cityName: weatherData.city.name,
-        temp: weatherData.list.first.temp.day.floor().toString(),
+        temp: weatherData.main.temp.toString(),
+        date: weatherData.day,
       );
     } on NetworkException {
       rethrow;

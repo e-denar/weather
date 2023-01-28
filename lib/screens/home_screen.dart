@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:weather/blocs/blocs.dart';
 import 'package:weather/blocs/home/home_bloc.dart';
 
@@ -166,14 +167,14 @@ class _WeatherResult extends StatelessWidget {
                 const TableRow(
                   children: [
                     Text(
-                      'Date',
+                      'Date (mm/dd/yyyy)',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
-                      'Temperature',
+                      'Temp (F)',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -189,9 +190,7 @@ class _WeatherResult extends StatelessWidget {
                           : Colors.transparent,
                     ),
                     children: [
-                      Text(
-                        e.cityName,
-                      ),
+                      Text(DateFormat.yMd().format(e.date)),
                       Text(e.temp)
                     ],
                   ),

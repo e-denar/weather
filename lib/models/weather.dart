@@ -1,9 +1,9 @@
 class Weather {
   Weather({
-    required this.cityName,
     required this.temp,
+    required this.date,
   });
 
-  final String cityName;
   final String temp;
+  final DateTime date;
 }
