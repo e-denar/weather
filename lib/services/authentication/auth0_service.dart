@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auth0_flutter/auth0_flutter.dart';
 
 import '../../common/common.dart';
@@ -14,16 +16,20 @@ class Auth0Service implements AuthService {
   @override
   Future<User?> login() async {
     try {
-      final result = await _service.webAuthentication().login(
-            useEphemeralSession: true,
-          );
+      final result = await _service
+          .webAuthentication(
+            scheme: Platform.isAndroid ? 'https' : null,
+          )
+          .login();
 
       return User(
         result.user.name!,
         githubUrl: 'https://github.com/${result.user.nickname}',
       );
     } catch (e) {
-      if (e is WebAuthenticationException && e.code == 'USER_CANCELLED') {
+      if (e is WebAuthenticationException &&
+          (e.code == 'USER_CANCELLED' ||
+              e.code == "a0.authentication_canceled")) {
         return null;
       } else {
         throw LoginException();
@@ -34,9 +40,15 @@ class Auth0Service implements AuthService {
   @override
   Future<void> logout() async {
     try {
-      await _service.webAuthentication().logout();
+      await _service
+          .webAuthentication(
+            scheme: Platform.isAndroid ? 'https' : null,
+          )
+          .logout();
     } catch (e) {
-      if (e is WebAuthenticationException && e.code == 'USER_CANCELLED') {
+      if (e is WebAuthenticationException &&
+          (e.code == 'USER_CANCELLED' ||
+              e.code == "a0.authentication_canceled")) {
         rethrow;
       } else {
         throw LogoutException();
